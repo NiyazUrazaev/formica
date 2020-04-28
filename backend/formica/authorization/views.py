@@ -11,8 +11,13 @@ class LoginView(APIView):
 
     def post(self, request):
 
-        login = request.POST['login']
-        password = request.POST['password']
+        login = request.POST.get('login', None)
+        if login is None:
+            return Response(status=400, data='Укажите ваш логин!')
+
+        password = request.POST.get('password', None)
+        if password is None:
+            return Response(status=400, data='Укажите ваш пароль!')
 
         user = auth.authenticate(username=login, password=password)
 
