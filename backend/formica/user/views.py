@@ -16,7 +16,7 @@ class LoginView(APIView):
 
         user = auth.authenticate(username=email, password=password)
 
-        if user:
+        if user is not None:
             auth.login(request, user)
             return Response(
                 status=200, data={'message': 'Авторизация прошла успешно'})
