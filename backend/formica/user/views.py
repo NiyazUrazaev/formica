@@ -11,10 +11,10 @@ class LoginView(APIView):
 
     def post(self, request):
 
-        email = request.POST['email']
+        login = request.POST['login']
         password = request.POST['password']
 
-        user = auth.authenticate(username=email, password=password)
+        user = auth.authenticate(username=login, password=password)
 
         if user is not None:
             auth.login(request, user)
