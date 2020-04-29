@@ -11,7 +11,9 @@ class ProfilePageInfoView(APIView):
     def get(self, request):
 
         profile_id = request.GET.get('id', None)
+        print(Profile.objects.values_list('id', flat=True))
         if profile_id is None:
+            # Так profile_id нужен или id?)
             return Response(status=400, data='No profile_id in kwargs!')
 
         try:
@@ -19,7 +21,7 @@ class ProfilePageInfoView(APIView):
         except Profile.DoesNotExist:
             return Response(status=400, data='No profile with this id!')
 
-        return Response(status=200, data=model_to_dict(profile))
+        return Response(status=200, data=model_to_dict(profile, exclude=('password', 'avatar')))
 
     def post(self, request):
         pass
