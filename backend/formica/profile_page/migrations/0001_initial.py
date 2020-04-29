@@ -2,7 +2,8 @@
 
 from django.conf import settings
 import django.contrib.auth.models
-from django.db import migrations, models
+from django.db import migrations
+from django.db import models
 import django.db.models.deletion
 
 
@@ -18,7 +19,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('user_ptr', models.OneToOneField(
+                    auto_created=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    parent_link=True,
+                    primary_key=True,
+                    serialize=False,
+                    to=settings.AUTH_USER_MODEL
+                )),
                 ('birthday', models.DateField(null=True, verbose_name='Дата рождения')),
                 ('info', models.TextField(default='', verbose_name='Информация о пользователе')),
                 ('bio', models.TextField(default='', verbose_name='Происхождение пользователя')),
