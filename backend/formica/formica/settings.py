@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'profile_page',
     'authorization',
     'aim',
+    'achievement'
 ]
 
 MIDDLEWARE = [
@@ -165,3 +166,6 @@ MEDIA_URL = '/media/'
 
 # Директория картинок для упражнений
 AIM_DIR_NAME = 'aim'
+
+# Директория картинок для достижений
+ACHIEVEMENT_DIR_NAME = 'achievement'
