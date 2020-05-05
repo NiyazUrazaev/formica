@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'profile_page',
     'authorization',
+    'aim',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Директория картинок для упражнений
+AIM_DIR_NAME = 'aim'

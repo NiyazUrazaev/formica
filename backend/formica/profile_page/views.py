@@ -11,10 +11,8 @@ class ProfilePageInfoView(APIView):
     def get(self, request):
 
         profile_id = request.GET.get('id', None)
-        print(Profile.objects.values_list('id', flat=True))
         if profile_id is None:
-            # Так profile_id нужен или id?)
-            return Response(status=400, data='No profile_id in kwargs!')
+            return Response(status=400, data='No profile id in kwargs!')
 
         try:
             profile = Profile.objects.get(id=profile_id)
