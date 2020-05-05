@@ -106,6 +106,60 @@ class UserAim(models.Model):
             new_obj.save()
         return super(UserAim, self).save(**kwargs)
 
+    class Meta:
+        verbose_name = 'Цель пользователя'
+        verbose_name_plural = 'Цели пользователей'
 
 
+class Like(models.Model):
 
+    author = models.ForeignKey(
+        'profile_page.Profile',
+        on_delete=models.SET_NULL,
+        verbose_name='Автор',
+        null=True,
+    )
+
+    user_aim = models.ForeignKey(
+        UserAim,
+        on_delete=models.CASCADE,
+        verbose_name='Цель пользователя',
+    )
+
+    created = models.DateTimeField(
+        verbose_name='Дата',
+        default=now,
+    )
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+
+
+class Comment(models.Model):
+
+    text = models.TextField(
+        verbose_name='Текст'
+    )
+
+    created = models.DateTimeField(
+        default=now,
+        verbose_name='Дата',
+    )
+
+    user_aim = models.ForeignKey(
+        UserAim,
+        on_delete=models.CASCADE,
+        verbose_name='Цель пользователя',
+    )
+
+    author = models.ForeignKey(
+        'profile_page.Profile',
+        on_delete=models.SET_NULL,
+        verbose_name='Автор',
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментрии'
