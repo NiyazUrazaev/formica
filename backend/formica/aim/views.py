@@ -81,11 +81,13 @@ class UserAimView(APIView):
         # UserAim
         regularity = request.POST.get('regularity', None)
         deadline = request.POST.get('deadline', None)
+        completed = request.POST.get('completed', None) == 'True'
         user_aim_fields = {
             'deadline': (datetime.datetime.strptime(deadline, '%Y-%m-%dT%H:%M:%S')
                             if deadline is not None else None),
-            'is_closed': request.POST.get('is_closed', None),
+            'is_closed': request.POST.get('is_closed', None) == 'True',
             'regularity': int(regularity) if regularity else None,
+            'completed': datetime.datetime.now() if completed else None,
             'profile': profile,
             'aim': aim,
         }
