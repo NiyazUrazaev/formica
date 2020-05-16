@@ -94,8 +94,7 @@ class UserAim(models.Model):
     )
 
     def save(self, **kwargs):
-        self.completed = now()
-        if self.regularity and not self.is_closed:
+        if self.regularity and not self.is_closed and self.completed is not None:
             new_obj = UserAim(
                 profile_id=self.profile_id,
                 aim_id=self.aim_id,

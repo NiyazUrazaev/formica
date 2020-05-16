@@ -25,3 +25,10 @@ def get_next_period(date, regularity):
         date = date + timedelta(days=365)
 
     return date
+
+
+def set_values_to_model(model, values):
+    for key, value in values.items():
+        if getattr(model, key, None) != value and value is not None:
+            setattr(model, key, value)
+    model.save()
