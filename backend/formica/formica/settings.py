@@ -81,7 +81,7 @@ REST_FRAMEWORK = {
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_PAGINATION_CLASS':
@@ -169,3 +169,8 @@ AIM_DIR_NAME = 'aim'
 
 # Директория картинок для достижений
 ACHIEVEMENT_DIR_NAME = 'achievement'
+
+AUTHENTICATION_BACKENDS = [
+    'profile_page.auth_backends.CustomUserModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
+]
