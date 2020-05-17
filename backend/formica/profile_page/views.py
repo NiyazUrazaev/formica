@@ -22,7 +22,8 @@ class ProfilePageInfoView(APIView):
         except Profile.DoesNotExist:
             return Response(status=400, data='No profile with this id!')
 
-        return Response(status=200, data=model_to_dict(profile, exclude=('password', 'avatar')))
+        return Response(status=200, data=model_to_dict(profile, exclude=(
+            'password', 'avatar', 'user_permissions', 'profile', 'friend')))
 
     def post(self, request):
         pass
@@ -42,4 +43,5 @@ class MyProfileView(APIView):
             # Такое возможно?) Мы же id берём из сессии, а туда положили сами.
             return Response(status=400, data='No profile with this id!')
 
-        return Response(status=200, data=model_to_dict(profile, exclude=('password', 'avatar')))
+        return Response(status=200, data=model_to_dict(profile, exclude=(
+            'password', 'avatar', 'user_permissions', 'profile', 'friend')))
