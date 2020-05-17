@@ -19,7 +19,8 @@ class GetUserAimsView(APIView):
         if profile_id is None:
             return Response(status=400, data='No profile_id in kwargs!')
 
-        user_aims = UserAim.objects.filter(profile__id=profile_id).select_related('aim')
+        user_aims = UserAim.objects.filter(
+            profile__id=profile_id).select_related('aim')
         data = []
         for user_aim in user_aims:
             model_entry = {

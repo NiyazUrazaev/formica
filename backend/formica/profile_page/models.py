@@ -2,6 +2,8 @@ import os
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Profile(User):
@@ -74,3 +76,14 @@ class Profile(User):
     class Meta:
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    print(sender)
+    if created:
+        values = {}
+        for field in sender._meta.local_fields:
+            values[field.attname] = getattr(instance, field.attname)
+        user = Profile(**values)
+        user.save()
