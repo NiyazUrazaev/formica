@@ -66,13 +66,6 @@ class Profile(User):
         verbose_name='Аватар',
     )
 
-    def save(self, *args, **kwargs):
-        # Создание нового пользователя
-        if self.pk is None:
-            # Сохраняем хэш пароля, а не сам пароль
-            self.set_password(self.password)
-        return super(Profile, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
@@ -80,7 +73,6 @@ class Profile(User):
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
-    print(sender)
     if created:
         values = {}
         for field in sender._meta.local_fields:
