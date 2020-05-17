@@ -13,6 +13,7 @@ class Profile(User):
 
     birthday = models.DateField(
         null=True,
+        blank=True,
         verbose_name='Дата рождения',
     )
 
@@ -62,6 +63,13 @@ class Profile(User):
         blank=True,
         verbose_name='Аватар',
     )
+
+    def save(self, *args, **kwargs):
+        # Создание нового пользователя
+        if self.pk is None:
+            # Сохраняем хэш пароля, а не сам пароль
+            self.set_password(self.password)
+        return super(Profile, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Профиль"

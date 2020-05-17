@@ -1,4 +1,5 @@
 from django.forms import model_to_dict
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -7,6 +8,8 @@ from .models import Profile
 
 
 class ProfilePageInfoView(APIView):
+
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
 
@@ -27,16 +30,16 @@ class ProfilePageInfoView(APIView):
 
 class MyProfileView(APIView):
 
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
 
-        # Fixme: Че-то тут нет id
         profile_id = request.user.id
-        if profile_id is None:
-            return Response(status=403, data='The user is not logged in')
 
         try:
             profile = Profile.objects.get(id=profile_id)
         except Profile.DoesNotExist:
+            # Такое возможно?) Мы же id берём из сессии, а туда положили сами.
             return Response(status=400, data='No profile with this id!')
 
         return Response(status=200, data=model_to_dict(profile, exclude=('password', 'avatar')))
